@@ -1,0 +1,76 @@
+prompts:
+  - id: p01
+    text: "What is the best bank account for expats living in Germany?"
+    intent: commercial
+    language: en
+
+  - id: p02
+    text: "Which neobank has the lowest fees for international transfers?"
+    intent: commercial
+    language: en
+
+  - id: p03
+    text: "Best mobile bank for freelancers in Europe"
+    intent: commercial
+    language: en
+
+  - id: p04
+    text: "Which bank should a student moving to Berlin open an account with?"
+    intent: commercial
+    language: en
+
+  - id: p05
+    text: "Best free bank account in Germany 2026"
+    intent: commercial
+    language: en
+
+  - id: p06
+    text: "Revolut vs N26: which is better?"
+    intent: comparison
+    language: en
+
+  - id: p07
+    text: "Wise or Revolut for sending money abroad?"
+    intent: comparison
+    language: en
+
+  - id: p08
+    text: "N26 vs DKB for daily banking in Germany"
+    intent: comparison
+    language: en
+
+  - id: p09
+    text: "What is a neobank and how is it different from a traditional bank?"
+    intent: informational
+    language: en
+
+  - id: p10
+    text: "Are neobanks in Europe safe? Is my money protected?"
+    intent: informational
+    language: en
+
+  - id: p11
+    text: "Almanya'da yaşayan bir Türk için en iyi banka hesabı hangisi?"
+    intent: commercial
+    language: tr
+
+  - id: p12
+    text: "Avrupa'ya para göndermek için en ucuz uygulama hangisi?"
+    intent: commercial
+    language: tr
+
+  - id: p13
+    text: "Revolut mu Wise mı daha iyi?"
+    intent: comparison
+    language: tr
+
+  - id: p14
+    text: "Neobank nedir, güvenilir mi?"
+    intent: informational
+    language: tr
+
+  - id: p15
+    text: "Avrupa'da öğrenciler için en iyi dijital banka hangisi?"
+    intent: commercial
+    language: tr
+    

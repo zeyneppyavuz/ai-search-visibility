@@ -1,0 +1,51 @@
+brands:
+  - id: n26
+    name: N26
+    aliases: ["N26", "N26 Bank", "Number26"]
+    domain: n26.com
+
+  - id: revolut
+    name: Revolut
+    aliases: ["Revolut"]
+    domain: revolut.com
+
+  - id: wise
+    name: Wise
+    aliases: ["Wise", "TransferWise"]
+    domain: wise.com
+
+  - id: bunq
+    name: bunq
+    aliases: ["bunq"]
+    domain: bunq.com
+
+  - id: monzo
+    name: Monzo
+    aliases: ["Monzo"]
+    domain: monzo.com
+
+  - id: trade_republic
+    name: Trade Republic
+    aliases: ["Trade Republic"]
+    domain: traderepublic.com
+
+  - id: vivid
+    name: Vivid Money
+    aliases: ["Vivid", "Vivid Money"]
+    domain: vivid.money
+
+  - id: c24
+    name: C24 Bank
+    aliases: ["C24", "C24 Bank"]
+    domain: c24.de
+
+  - id: tomorrow
+    name: Tomorrow Bank
+    aliases: ["Tomorrow", "Tomorrow Bank"]
+    domain: tomorrow.one
+
+  - id: dkb
+    name: DKB
+    aliases: ["DKB", "Deutsche Kreditbank"]
+    domain: dkb.de
+    
