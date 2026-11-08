@@ -1,12 +1,11 @@
 from contextlib import asynccontextmanager
 from enum import Enum
 
-import yaml
 from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 from sqlmodel import Session, select
 
-from minipeec.db import DATA_DIR, PromptDB, create_db, get_session
+from minipeec.db import BrandDB, PromptDB, create_db, get_session
 
 
 class Intent(str, Enum):
@@ -33,12 +32,6 @@ class Health(BaseModel):
     status: str
 
 
-def load_brands() -> list[Brand]:
-    with open(DATA_DIR / "brands.yaml", encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-    return [Brand(**b) for b in data["brands"]]
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_db()
@@ -52,6 +45,8 @@ app = FastAPI(title="mini Peec", lifespan=lifespan)
 def health():
     return {"status": "ok"}
 
+
+# ---------- Prompts ----------
 
 @app.get("/prompts", response_model=list[Prompt])
 def list_prompts(session: Session = Depends(get_session)):
@@ -86,6 +81,16 @@ def delete_prompt(prompt_id: str, session: Session = Depends(get_session)):
     session.commit()
 
 
+# ---------- Brands ----------
+
 @app.get("/brands", response_model=list[Brand])
-def list_brands():
-    return load_brands()
+def list_brands(session: Session = Depends(get_session)):
+    return session.exec(select(BrandDB)).all()
+
+
+@app.get("/brands/{brand_id}", response_model=Brand)
+def get_brand(brand_id: str, session: Session = Depends(get_session)):
+    brand = session.get(BrandDB, brand_id)
+    if brand is None:
+        raise HTTPException(status_code=404, detail="Brand not found")
+    return brand

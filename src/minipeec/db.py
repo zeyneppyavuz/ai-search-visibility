@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import yaml
+from sqlalchemy import JSON, Column
 from sqlmodel import Field, Session, SQLModel, create_engine
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
@@ -17,6 +18,15 @@ class PromptDB(SQLModel, table=True):
     language: str
 
 
+class BrandDB(SQLModel, table=True):
+    __tablename__ = "brands"
+
+    id: str = Field(primary_key=True)
+    name: str
+    aliases: list[str] = Field(sa_column=Column(JSON))
+    domain: str
+
+
 def create_db():
     SQLModel.metadata.create_all(engine)
 
@@ -26,15 +36,23 @@ def get_session():
         yield session
 
 
-def seed_prompts():
-    with open(DATA_DIR / "prompts.yaml", encoding="utf-8") as f:
+def _seed(model, yaml_file, key):
+    with open(DATA_DIR / yaml_file, encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
     added = 0
     with Session(engine) as session:
-        for p in data["prompts"]:
-            if session.get(PromptDB, p["id"]) is None:
-                session.add(PromptDB(**p))
+        for item in data[key]:
+            if session.get(model, item["id"]) is None:
+                session.add(model(**item))
                 added += 1
         session.commit()
     return added
+
+
+def seed_prompts():
+    return _seed(PromptDB, "prompts.yaml", "prompts")
+
+
+def seed_brands():
+    return _seed(BrandDB, "brands.yaml", "brands")

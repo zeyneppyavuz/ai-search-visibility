@@ -4,7 +4,7 @@ from sqlalchemy.pool import StaticPool
 from sqlmodel import Session, SQLModel, create_engine
 
 from minipeec.api.main import app
-from minipeec.db import PromptDB, get_session
+from minipeec.db import BrandDB, PromptDB, get_session
 
 
 @pytest.fixture
@@ -19,6 +19,8 @@ def session():
         session.add_all([
             PromptDB(id="t1", text="Best bank for expats?", intent="commercial", language="en"),
             PromptDB(id="t2", text="Revolut vs N26?", intent="comparison", language="en"),
+            BrandDB(id="n26", name="N26", aliases=["N26", "N26 Bank"], domain="n26.com"),
+            BrandDB(id="revolut", name="Revolut", aliases=["Revolut"], domain="revolut.com"),
         ])
         session.commit()
         yield session

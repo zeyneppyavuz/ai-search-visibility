@@ -46,13 +46,18 @@ def test_delete_prompt(client):
     assert client.get("/prompts/t1").status_code == 404
 
 
-def test_brands_returns_10(client):
+def test_list_brands(client):
     response = client.get("/brands")
     assert response.status_code == 200
-    assert len(response.json()) == 10
+    assert len(response.json()) == 2
 
 
-def test_n26_aliases(client):
-    brands = client.get("/brands").json()
-    n26 = [b for b in brands if b["id"] == "n26"][0]
-    assert "N26 Bank" in n26["aliases"]
+def test_get_brand_with_aliases(client):
+    response = client.get("/brands/n26")
+    assert response.status_code == 200
+    assert "N26 Bank" in response.json()["aliases"]
+
+
+def test_get_missing_brand_returns_404(client):
+    response = client.get("/brands/nope")
+    assert response.status_code == 404
