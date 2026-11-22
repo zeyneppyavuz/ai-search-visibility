@@ -1,12 +1,16 @@
+import os
 from pathlib import Path
 
 import yaml
+from dotenv import load_dotenv
 from sqlalchemy import JSON, Column
 from sqlmodel import Field, Session, SQLModel, create_engine
 
+load_dotenv()
+
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
-DB_PATH = DATA_DIR / "minipeec.db"
-engine = create_engine(f"sqlite:///{DB_PATH}")
+DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DATA_DIR / 'minipeec.db'}")
+engine = create_engine(DATABASE_URL)
 
 
 class PromptDB(SQLModel, table=True):
